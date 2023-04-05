@@ -1,62 +1,63 @@
-let arrData = [];
+let arr = [];
 
-if (sessionStorage.arrData != null) {
-    arrData = JSON.parse(sessionStorage.arrData);
+if (sessionStorage.arr != null) {
+    arr = JSON.parse(sessionStorage.arr);
 }
 
-let userName;
-let userPassword;
-let userEmail;
-let userNumber;
 
-let DataCollected = document.getElementById("datasub");
 
-DataCollected.addEventListener("submit", function (event) {
-    event.preventDefault();
+let input = document.getElementById("input")
+input.addEventListener("submit", function (event) {
+    event.preventDefault()
 
-    userName = event.target.username.value;
-    userPassword = event.target.userpassword.value;
-    userEmail = event.target.useremail.value;
-    userNumber = event.target.usernumber.value;
 
-    if (validateName() && validatePassword() && validateEmail() && validateNumber()) {
-        arrData.push(userName);
-        sessionStorage.setItem('arrData', JSON.stringify(arrData));
-        // DataCollected.reset(); 
+    let Name = event.target.fullname.value
+    let Phonenumber = event.target.phonenumber.value
+    let Email = event.target.email.value
+    let Password = event.target.password.value
+
+
+
+    if (validateName() && validatePhonenumber() && validateEmail && validatePassword()) {
+        return arr.push(Name);
+        sessionStorage.setItem("arr", JSON.stringify(arr))
     }
-
+    else { return false }
 
 
 });
 
-function validateName() {
-    let Name = userName.toLowerCase();
-    if (Name == "") {
-        alert("Name must be filled out");
-        return false;
 
-    } else if (Name.includes(" ")) {
-        alert("Name must be filled with no spaces");
-        return false;
-    } else if (arrData.includes(userName)) {
-
-        alert("Username already exists. welcome " + userName);
-        return false;
+validateName()
+{
+    let username = Name.tolowercase()
+    if (username == "" || username.includes(" ")) {
+        alert("the username must be filled as well ");
+        return false
     }
 
-    return true;
+
+    else if (arr.includes(username)) {
+        alert(" the name is exists");
+        return false
+    }
+
+    else { return true }
 
 }
 
 
-function validatePassword() {
-    let password = userPassword;
-    const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*]{8,}$/;
-    if (!passwordRegex.test(password)) {
-        alert("Password must contain at least 8 characters, 1 number, 1 uppercase letter, and 1 special character");
-        return false;
+
+validatePassword(){
+
+    let password = Password
+    let spchar = "!#$%^&*()+=-[]\\\';,/{}|\":<>?";
+    let passwordregx = /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*]{8,}$/;
+    if (!passwordregx.test(password)) {
+        alert
+            ("Password must contain at least 8 characters, 1 number, 1 uppercase letter, and 1 special character")
     }
-    return true;
+    return false
 }
 
 function validateEmail() {
@@ -66,8 +67,6 @@ function validateEmail() {
         alert("Please enter a valid Email EX.. majdi@gamil.com");
         return false;
     }
-
-
     for (let i = 0; i < Email.length; i++) {
         if (iChars.indexOf(Email.charAt(i)) != -1) {
             alert("The Email has special characters. \nThese are not allowed.\n");
@@ -76,10 +75,9 @@ function validateEmail() {
     }
     return true;
 }
-
 function validateNumber() {
     let iChars = "!#$%^&*()+=-[]\\\';,/{}|\":<>?@.";
-    let Number = userNumber;
+    let Number = Phonenumber;
 
     if (!(Number.includes("07")) || !(Number.length == 10)) {
         alert("Please enter a valid number ex. 0799855850");
@@ -94,6 +92,11 @@ function validateNumber() {
     }
     return true;
 }
+
+
+
+
+
 
 
 
